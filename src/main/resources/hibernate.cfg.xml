@@ -53,6 +53,11 @@
             org.hibernate.cache.jcache.JCacheRegionFactory
         </property>
 
+        <mapping class="com.abdullah.entity.Person"/>
+        <mapping class="com.abdullah.entity.Doctor"/>
+        <mapping class="com.abdullah.entity.Patient"/>
+        <mapping class="com.abdullah.entity.Admin"/>
+
     </session-factory>
 
 </hibernate-configuration>
