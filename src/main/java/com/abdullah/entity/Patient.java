@@ -3,6 +3,9 @@ package com.abdullah.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @DiscriminatorValue("PATIENT")
 public class Patient extends Person {
@@ -12,6 +15,14 @@ public class Patient extends Person {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "medical_record_id")
     private MedicalRecord medicalRecord;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Appointment> appointments = new ArrayList<>();
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+        appointment.setPatient(this);
+    }
 
     public MedicalRecord getMedicalRecord() {
         return medicalRecord;
