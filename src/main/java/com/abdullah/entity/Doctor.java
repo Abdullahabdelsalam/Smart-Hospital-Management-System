@@ -22,12 +22,43 @@ public class Doctor  extends  Person{
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<Patient> patients = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     public Doctor() {
     }
 
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<Appointment> appointments = new ArrayList<>();
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public List<Specialization> getSpecializations() {
+        return specializations;
+    }
+
+    public void setSpecializations(List<Specialization> specializations) {
+        this.specializations = specializations;
+    }
+
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public Doctor(String fullName, int age, String gender,
-                   double salary) {
+                  double salary) {
         super(fullName, age, gender);
         this.salary = salary;
     }

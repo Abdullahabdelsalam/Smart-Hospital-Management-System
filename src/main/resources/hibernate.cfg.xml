@@ -60,6 +60,7 @@
         <mapping class="com.abdullah.entity.MedicalRecord"/>
         <mapping class="com.abdullah.entity.Specialization"/>
         <mapping class="com.abdullah.entity.Appointment"/>
+        <mapping class="com.abdullah.entity.Department"/>
 
 
     </session-factory>

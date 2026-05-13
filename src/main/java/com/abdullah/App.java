@@ -75,34 +75,76 @@ public class App {
 //        tx.commit();
 //        session.close();
 
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        Transaction tx = session.beginTransaction();
+//
+//
+//        Doctor doctor = new Doctor("Dr Ahmed", 40, "Male", 25000);
+//
+//        Specialization s1 = new Specialization("Cardiology");
+//        Specialization s2 = new Specialization("Neurology");
+//
+//
+//        Patient p1 = new Patient("Ali", 25, "Male", "Flu");
+//        Patient p2 = new Patient("Mona", 30, "Female", "Cold");
+//
+//
+//        doctor.getSpecialization().add(s1);
+//        doctor.getSpecialization().add(s2);
+//
+//        p1.setDoctor(doctor);
+//        p2.setDoctor(doctor);
+//
+//        doctor.getPatients().add(p1);
+//        doctor.getPatients().add(p2);
+//
+//        session.persist(doctor);
+//
+//        tx.commit();
+//        session.close();
+//
+//        System.out.println("Doctor Test Saved Successfully ✔");
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        Transaction tx = session.beginTransaction();
+//
+//        Doctor doctor = new Doctor("Ahmed Samy", 40, "Male", 20000);
+//
+//        Appointment a1 = new Appointment("2026-05-20", "10:00", "BOOKED");
+//        Appointment a2 = new Appointment("2026-05-21", "12:00", "BOOKED");
+//
+//        a1.setDoctor(doctor);
+//        a2.setDoctor(doctor);
+//
+//        doctor.getAppointments().add(a1);
+//        doctor.getAppointments().add(a2);
+//
+//        session.persist(doctor);
+//
+//        tx.commit();
+//        session.close();
+//
+//        System.out.println("Step 6 Done ✔");
+
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
+        session.beginTransaction();
 
+// Department
+        Department dept = new Department("Cardiology");
 
-        Doctor doctor = new Doctor("Dr Ahmed", 40, "Male", 25000);
+// Doctors
+        Doctor d1 = new Doctor("Ahmed", 35, "Male", 15000);
+        Doctor d2 = new Doctor("Sara", 30, "Female", 14000);
 
-        Specialization s1 = new Specialization("Cardiology");
-        Specialization s2 = new Specialization("Neurology");
+// ربط الدكاترة بالقسم
+        dept.addDoctor(d1);
+        dept.addDoctor(d2);
 
+// حفظ
+        session.persist(dept);
 
-        Patient p1 = new Patient("Ali", 25, "Male", "Flu");
-        Patient p2 = new Patient("Mona", 30, "Female", "Cold");
-
-
-        doctor.getSpecialization().add(s1);
-        doctor.getSpecialization().add(s2);
-
-        p1.setDoctor(doctor);
-        p2.setDoctor(doctor);
-
-        doctor.getPatients().add(p1);
-        doctor.getPatients().add(p2);
-
-        session.persist(doctor);
-
-        tx.commit();
+        session.getTransaction().commit();
         session.close();
 
-        System.out.println("Doctor Test Saved Successfully ✔");
+        System.out.println("Department with Doctors Saved ✔");
     }
 }
