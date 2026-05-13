@@ -1,14 +1,25 @@
 package com.abdullah.entity;
 
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
 @DiscriminatorValue("PATIENT")
 public class Patient extends Person {
 
     private String disease;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medical_record_id")
+    private MedicalRecord medicalRecord;
+
+    public MedicalRecord getMedicalRecord() {
+        return medicalRecord;
+    }
+
+    public void setMedicalRecord(MedicalRecord medicalRecord) {
+        this.medicalRecord = medicalRecord;
+    }
 
     public Patient() {
     }
