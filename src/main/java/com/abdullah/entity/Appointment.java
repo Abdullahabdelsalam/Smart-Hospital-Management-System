@@ -23,6 +23,7 @@ public class Appointment {
     public Appointment(String doctorName, String date, String status) {
         this.doctorName = doctorName;
         this.date = date;
+        
         this.status = status;
     }
 

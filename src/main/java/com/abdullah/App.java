@@ -1,8 +1,6 @@
 package com.abdullah;
 
-import com.abdullah.entity.Appointment;
-import com.abdullah.entity.MedicalRecord;
-import com.abdullah.entity.Patient;
+import com.abdullah.entity.*;
 import com.abdullah.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -37,44 +35,74 @@ public class App {
 //
 //        tx.commit();
 //        session.close();
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Patient.class)
-                .addAnnotatedClass(MedicalRecord.class)
-                .addAnnotatedClass(Appointment.class)
-                .buildSessionFactory();
+//        SessionFactory factory = new Configuration()
+//                .configure("hibernate.cfg.xml")
+//                .addAnnotatedClass(Patient.class)
+//                .addAnnotatedClass(MedicalRecord.class)
+//                .addAnnotatedClass(Appointment.class)
+//                .buildSessionFactory();
+//
+//        Session session = factory.openSession();
+//        Transaction tx = session.beginTransaction();
+//
+//// Medical Record
+//        MedicalRecord record = new MedicalRecord(
+//                "A+",
+//                "Peanuts",
+//                "Flu",
+//                "Paracetamol"
+//        );
+//
+//// Patient
+//        Patient patient = new Patient(
+//                "Ahmed Ali",
+//                25,
+//                "Male",
+//                "Fever"
+//        );
+//
+//// Appointments
+//        Appointment a1 = new Appointment("Dr. Smith", "2026-05-14", "Scheduled");
+//        Appointment a2 = new Appointment("Dr. John", "2026-05-15", "Pending");
+//
+//
+//        patient.setMedicalRecord(record);
+//        patient.addAppointment(a1);
+//        patient.addAppointment(a2);
+//
+//        session.persist(patient);
+//
+//        tx.commit();
+//        session.close();
 
-        Session session = factory.openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
-// Medical Record
-        MedicalRecord record = new MedicalRecord(
-                "A+",
-                "Peanuts",
-                "Flu",
-                "Paracetamol"
-        );
 
-// Patient
-        Patient patient = new Patient(
-                "Ahmed Ali",
-                25,
-                "Male",
-                "Fever"
-        );
+        Doctor doctor = new Doctor("Dr Ahmed", 40, "Male", 25000);
 
-// Appointments
-        Appointment a1 = new Appointment("Dr. Smith", "2026-05-14", "Scheduled");
-        Appointment a2 = new Appointment("Dr. John", "2026-05-15", "Pending");
+        Specialization s1 = new Specialization("Cardiology");
+        Specialization s2 = new Specialization("Neurology");
 
 
-        patient.setMedicalRecord(record);
-        patient.addAppointment(a1);
-        patient.addAppointment(a2);
+        Patient p1 = new Patient("Ali", 25, "Male", "Flu");
+        Patient p2 = new Patient("Mona", 30, "Female", "Cold");
 
-        session.persist(patient);
+
+        doctor.getSpecialization().add(s1);
+        doctor.getSpecialization().add(s2);
+
+        p1.setDoctor(doctor);
+        p2.setDoctor(doctor);
+
+        doctor.getPatients().add(p1);
+        doctor.getPatients().add(p2);
+
+        session.persist(doctor);
 
         tx.commit();
         session.close();
+
+        System.out.println("Doctor Test Saved Successfully ✔");
     }
 }

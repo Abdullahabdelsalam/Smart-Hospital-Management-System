@@ -58,6 +58,9 @@
         <mapping class="com.abdullah.entity.Patient"/>
         <mapping class="com.abdullah.entity.Admin"/>
         <mapping class="com.abdullah.entity.MedicalRecord"/>
+        <mapping class="com.abdullah.entity.Specialization"/>
+        <mapping class="com.abdullah.entity.Appointment"/>
+
 
     </session-factory>
 

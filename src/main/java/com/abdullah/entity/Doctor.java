@@ -1,32 +1,51 @@
 package com.abdullah.entity;
 
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("DOCTOR")
 public class Doctor  extends  Person{
-    private String specialization;
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "doctor_specialization",
+            joinColumns = @JoinColumn(name = "doctor_id"),
+            inverseJoinColumns = @JoinColumn(name = "specialization_id")
+    )
+    private List<Specialization> specializations  = new ArrayList<>();
     private  double salary;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<Patient> patients = new ArrayList<>();
 
 
     public Doctor() {
     }
 
     public Doctor(String fullName, int age, String gender,
-                  String specialization, double salary) {
+                   double salary) {
         super(fullName, age, gender);
-        this.specialization = specialization;
         this.salary = salary;
     }
 
-    public String getSpecialty() {
-        return specialization;
+    public List<Patient> getPatients() {
+        return patients;
     }
 
-    public void setSpecialty(String specialty) {
-        specialization = specialty;
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
+    public List<Specialization> getSpecialization() {
+        return specializations ;
+    }
+
+    public void setSpecialization(List<Specialization> specialization) {
+        this.specializations  = specializations ;
     }
 
     public double getSalary() {
